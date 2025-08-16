@@ -1,66 +1,71 @@
 F5-TTS-HPC
+================
 
-F5-TTS-HPC เป็นเวอร์ชันที่ปรับแต่งมาจาก F5-TTS สำหรับใช้งานบน Supercomputer / HPC Cluster โดยปิดการดาวน์โหลดโมเดลอัตโนมัติ (auto-download) และให้ผู้ใช้จัดการดาวน์โหลดเอง
+F5-TTS-HPC is a version of F5-TTS optimized for use on Supercomputers / HPC Clusters by turning off automatic model download (auto-download).
+It allows users to manage their own model downloads.
 
-ORIGINAL https://github.com/SWivid/F5-TTS
+ORIGINAL: https://github.com/SWivid/F5-TTS
 
-✅ เหมาะสำหรับสภาพแวดล้อมที่ ไม่สามารถเชื่อมต่ออินเทอร์เน็ตตรง ๆ
-✅ ควบคุมเวอร์ชันของโมเดลเองได้
-✅ รองรับทั้ง Inference และ Training / Fine-tuning
+✅ Suitable for environments that cannot directly connect to the internet.
+✅ Users can control the version of the model themselves.
+✅ Support both Inference and Training / Fine-tuning.
 
-📂 โครงสร้างไฟล์
+📂 File Structure
+-----------------
 
-หลังจากติดตั้งโค้ดแล้ว ควรสร้างโฟลเดอร์ดังนี้
+After installing the code, the following directory structure should be created:
 
 F5-TTS-HPC/
-│
-├── pretrain_checkpoint/    # สำหรับเก็บ pretrain model (จาก HuggingFace)
+├── pretrain_checkpoint/    # for storing pretrain model (from HuggingFace)
 │   └── F5TTS_v1_Base.pth
-│
-├── vocoder/                # สำหรับเก็บ vocoder (เช่น Vocos) 
+├── vocoder/                # for storing vocoder (e.g., Vocos)
 │   └── config.yaml and pytorh_model.bin
-│
 └── src/
     └── f5_tts/             # source code
 
-📥 การดาวน์โหลดโมเดล (Manual Download)
+📥 Manual Download
+-------------------
+
 1. Pretrain Model (F5-TTS)
 
-ดาวน์โหลดจาก HuggingFace:
+Download from HuggingFace:
 👉 https://huggingface.co/SWivid/F5-TTS/tree/main
 
-นำไฟล์ .pth หรือ checkpoint ใส่ในโฟลเดอร์:
+Place the .pth or checkpoint file in the following directory:
 
 F5-TTS-HPC/pretrain_checkpoint/
 
 2. Vocoder (Vocos)
 
-ดาวน์โหลดจาก HuggingFace:
+Download from HuggingFace:
 👉 https://huggingface.co/charactr/vocos-mel-24khz/tree/main
 
+🚀 Installation
+---------------
 
-⚙️ การติดตั้ง
-# สร้าง environment สำหรับ Python 3.11
+# Create a Python 3.11 environment
 conda create -n f5-tts-hpc python=3.11
 conda activate f5-tts-hpc
 
-# ติดตั้ง PyTorch ตาม GPU/Device ที่ใช้ (CUDA, ROCm, Intel, Apple MPS)
-# ตัวอย่าง NVIDIA CUDA 11.8
+# Install PyTorch according to the GPU/Device used (CUDA, ROCm, Intel, Apple MPS)
+# Example: NVIDIA CUDA 11.8
 pip install torch==2.3.0+cu118 torchaudio==2.3.0+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
 
-# clone repo
+# Clone the repo
 git clone https://github.com/yourname/F5-TTS-HPC.git
 cd F5-TTS-HPC
 pip install -e .
 
-📌 หมายเหตุสำหรับ HPC
+📌 Notes for HPC
+------------------
 
-ไม่มีการดาวน์โหลดไฟล์อัตโนมัติ
+No automatic file download.
 
-ผู้ใช้ต้องเตรียมโมเดลเองและวางไว้ในโฟลเดอร์ตามที่กำหนด
+Users must prepare their own models and place them in the directory according to the specified structure.
 
-เหมาะสำหรับการรันงานบน เครื่อง LANTA และ HPC Cluster อื่น ๆ
+Suitable for running jobs on LANTA Supercomputers and other HPC Clusters.
 
-🙏 ขอบคุณ
+🙏 Credit
+---------
 
-ขอขอบคุณ HPC-Ignite สำหรับการสนับสนุนการทดลองโมเดลนี้บนเครื่อง LANTA Supercomputer
+Thank you to HPC-Ignite for supporting the testing of this model on the LANTA Supercomputer.
