@@ -1,71 +1,83 @@
-F5-TTS-HPC
-================
+# F5-TTS-HPC
 
-F5-TTS-HPC is a version of F5-TTS optimized for use on Supercomputers / HPC Clusters by turning off automatic model download (auto-download).
-It allows users to manage their own model downloads.
+**F5-TTS-HPC** เป็นเวอร์ชันที่ปรับแต่งมาจาก [F5-TTS](https://github.com/SWivid/F5-TTS)  
+สำหรับใช้งานบน **Supercomputer / HPC Cluster** โดยปิดการดาวน์โหลดโมเดลอัตโนมัติ (auto-download)  
+และให้ผู้ใช้จัดการดาวน์โหลดเอง
 
-ORIGINAL: https://github.com/SWivid/F5-TTS
+---
 
-✅ Suitable for environments that cannot directly connect to the internet.
-✅ Users can control the version of the model themselves.
-✅ Support both Inference and Training / Fine-tuning.
+## ✨ Features
 
-📂 File Structure
------------------
+✅ เหมาะสำหรับสภาพแวดล้อมที่ไม่สามารถเชื่อมต่ออินเทอร์เน็ตตรง ๆ  
+✅ ควบคุมเวอร์ชันของโมเดลเองได้  
+✅ รองรับทั้ง **Inference** และ **Training / Fine-tuning**
 
-After installing the code, the following directory structure should be created:
+---
 
+## 📂 โครงสร้างไฟล์
+
+หลังจากติดตั้งโค้ดแล้ว ควรสร้างโฟลเดอร์ดังนี้:
+
+```bash
 F5-TTS-HPC/
-├── pretrain_checkpoint/    # for storing pretrain model (from HuggingFace)
-│   └── F5TTS_v1_Base.pth
-├── vocoder/                # for storing vocoder (e.g., Vocos)
-│   └── config.yaml and pytorh_model.bin
+│
+├── pretrain_checkpoint/    # สำหรับเก็บ pretrain model (จาก HuggingFace)
+│   └── F5TTS_v1_Base
+│       ├── model_1250000.pt
+│       └── vocab.txt
+│
+├── vocoder/                # สำหรับเก็บ vocoder (เช่น Vocos) 
+│   ├── config.yaml
+│   └── pytorch_model.bin
+│
 └── src/
     └── f5_tts/             # source code
-
-📥 Manual Download
--------------------
-
+```
+**📥 การดาวน์โหลดโมเดล (Manual Download)**
 1. Pretrain Model (F5-TTS)
 
-Download from HuggingFace:
+ดาวน์โหลดจาก HuggingFace:
 👉 https://huggingface.co/SWivid/F5-TTS/tree/main
 
-Place the .pth or checkpoint file in the following directory:
+นำไฟล์ .pt หรือ checkpoint ใส่ในโฟลเดอร์:
 
 F5-TTS-HPC/pretrain_checkpoint/
 
 2. Vocoder (Vocos)
 
-Download from HuggingFace:
+ดาวน์โหลดจาก HuggingFace:
 👉 https://huggingface.co/charactr/vocos-mel-24khz/tree/main
 
-🚀 Installation
----------------
+นำไฟล์ config.yaml และ pytorch_model.bin ไปวางในโฟลเดอร์:
 
-# Create a Python 3.11 environment
+F5-TTS-HPC/vocoder/
+
+**⚙️ การติดตั้ง สร้าง environment สำหรับ Python 3.11**
+```bash
 conda create -n f5-tts-hpc python=3.11
 conda activate f5-tts-hpc
+```
 
-# Install PyTorch according to the GPU/Device used (CUDA, ROCm, Intel, Apple MPS)
-# Example: NVIDIA CUDA 11.8
+**ติดตั้ง PyTorch ตาม GPU/Device ที่ใช้ (CUDA, ROCm, Intel, Apple MPS)**
+*ตัวอย่าง NVIDIA CUDA 11.8*
+```bash
 pip install torch==2.3.0+cu118 torchaudio==2.3.0+cu118 --extra-index-url https://download.pytorch.org/whl/cu118
-
-# Clone the repo
+```
+# clone repo
+```bash
 git clone https://github.com/yourname/F5-TTS-HPC.git
 cd F5-TTS-HPC
 pip install -e .
+```
 
-📌 Notes for HPC
-------------------
+📌 หมายเหตุสำหรับ HPC
 
-No automatic file download.
+❌ ไม่มีการดาวน์โหลดไฟล์อัตโนมัติ
 
-Users must prepare their own models and place them in the directory according to the specified structure.
+✅ ผู้ใช้ต้องเตรียมโมเดลเองและวางไว้ในโฟลเดอร์ตามที่กำหนด
 
-Suitable for running jobs on LANTA Supercomputers and other HPC Clusters.
+🎯 เหมาะสำหรับการรันงานบน เครื่อง LANTA และ HPC Cluster อื่น ๆ
 
-🙏 Credit
----------
+🙏 ขอบคุณ
 
-Thank you to HPC-Ignite for supporting the testing of this model on the LANTA Supercomputer.
+ขอขอบคุณ HPC-Ignite สำหรับการสนับสนุนการทดลองโมเดลนี้บนเครื่อง LANTA Supercomputer
